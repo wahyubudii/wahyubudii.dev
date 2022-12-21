@@ -29,7 +29,7 @@ export default function Contacts() {
     return (
         <div className='py-12 container mx-auto'>
             <div className="mx-40">
-                <h1 className='text-2xl font-bold after:content-["🚀"]'>Contacts </h1>
+                <h1 className='text-2xl font-bold'>Content<span className='ml-3 after:content-["🚀"]'></span></h1>
                 <form onSubmit={messageHandler} className="mt-6">
                     <div>
                         <input onChange={fieldHandler} type="email" name="email" id="email" className="peer block py-2.5 px-0 w-full text-sm text-gray-900 border-0 border-b-2 border-slate-400 appearance-none focus:outline-none focus:ring-0 focus:border-blue-500 invalid:focus:ring-pink-700 invalid:focus:border-red-500 peer" value={fields.email} placeholder="Email address" />

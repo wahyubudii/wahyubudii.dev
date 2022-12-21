@@ -9,7 +9,7 @@ export default function Project() {
   return (
     <div className='py-12 container mx-auto'>
       <div className="mx-40">
-        <h1 className='text-2xl font-bold after:content-["✨"]'>Projects </h1>
+        <h1 className='text-2xl font-bold'>Projects<span className='ml-3 after:content-["✨"]'></span></h1>
         <div className="mt-6 grid grid-cols-3 gap-5">
           { projectsData.map((val, index) => {
             return (

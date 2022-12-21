@@ -12,7 +12,7 @@ export default function Experiences() {
     return (
         <div className='py-12 container mx-auto'>
             <div className='mx-40'>
-                <h1 className='text-2xl font-bold after:content-["🦄"]'>Experiences </h1>
+                <h1 className='text-2xl font-bold'>Experiences<span className='ml-3 after:content-["🦄"]'></span></h1>
                 <div className="mt-6 flex">
                     <ul className="text-sm font-medium" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
                         {experiencesData.map((val, index) => {
