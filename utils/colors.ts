@@ -26,3 +26,10 @@ export const experienceColors = [
     { lightColor: "bg-lime-200", borderLight: "border-lime-200" },
     { lightColor: "bg-cyan-200", borderLight: "border-cyan-200" },
 ]
+
+// export const colorList = ["yellow", "red", "green", "blue", "violet", "slate", "orange", "gray", "indigo", "emerald", "pink", "fuchsia", "teal", "sky", "lime", "cyan"]
+
+export const colors = {
+    indigo: 'bg-indigo-500 hover:bg-indigo-600 text-white',
+    cyan: 'bg-cyan-600 hover:bg-cyan-700 text-white',
+}

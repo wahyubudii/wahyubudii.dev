@@ -10,7 +10,7 @@ import Project from '../components/Sections/Projects'
 export default function coba() {
   return (
     // use this want scroll-hide "h-screen overflow-y-scroll scrollbar-hide"
-    <div>
+    <div className='bg-gray-50 dark:bg-black'>
       <Header />
       <Hero />
       <Experiences />
