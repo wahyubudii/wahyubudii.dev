@@ -1,5 +1,4 @@
 import React from 'react'
-import photoProfile from '../../../public/images/photo_profile.jpg'
 import { RoughNotation, RoughNotationGroup } from 'react-rough-notation'
 import Link from 'next/link'
 
@@ -18,7 +17,7 @@ export default function Hero() {
           </RoughNotationGroup>
         </div>
         <div className='sm:flex rounded-full p-[2px]'>
-          <div className='relative border-[2.5px] border-white mx-auto rounded-full h-72 w-72 sm:h-80 sm:w-80 lg:h-80 lg:w-80 xl:h-72 xl:w-72 ml-auto bg-center bg-cover flex' style={{backgroundImage: `url(${photoProfile.src})`}}>
+          <div className='relative border-[2.5px] border-white mx-auto rounded-full h-72 w-72 sm:h-80 sm:w-80 lg:h-80 lg:w-80 xl:h-72 xl:w-72 ml-auto bg-center bg-cover flex' style={{backgroundImage: `url(/images/photo_profile.jpg)`}}>
             <div className='absolute top-8 right-3 p-2 rounded-full border-2 border-black bg-white dark:bg-slate-700 dark:border-[2.5px] dark:border-white text-2xl m-auto animate-wave after:content-["👋"]'></div>
           </div>
         </div>

@@ -16,3 +16,10 @@ export type Experiences = {
     role: string,
     description: string[]
 }
+
+export type MetaProps = {
+    title: string,
+    description: string,
+    favicon: string,
+    type: string
+}

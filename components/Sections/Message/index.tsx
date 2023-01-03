@@ -2,7 +2,7 @@ import React, { FormEvent, useState } from 'react'
 import { Email } from '../../../types'
 import { RiMailSendLine } from 'react-icons/ri'
 
-export default function Contacts() {
+export default function Message() {
     const [fields, setFields] = useState<Email>({
         email: "",
         message: ""
@@ -38,7 +38,7 @@ export default function Contacts() {
                     {/* BUG validation message */}
                     <div className="pt-3">
                         <textarea onChange={fieldHandler} name="message" id="message" className="peer/message rounded overflow-y-hidden h-52 block py-2.5 px-4 w-full text-sm text-gray-900 dark:text-white dark:bg-slate-800 border-0 border-b-2 border-slate-400 appearance-none focus:outline-none focus:ring-0 focus:border-blue-500 invalid:focus:ring-pink-700 invalid:focus:border-red-500 peer" value={fields.message} placeholder="Message" />
-                        <p className={`${fields.message ? "invisible" : "peer-invalid:visible"} invisible mt-1 text-red-500 text-xs italic`}>Message doesnt empty.</p>
+                        <p className={`${fields.message ? "invisible" : "peer-invalid:visible"} invisible mt-1 text-red-500 text-xs italic`}>Message doesn&#39;t empty.</p>
                     </div>
                     <div className='flex gap-4'>
                         <button type='submit' className='mt-4 sm:mt-12 rounded-full bg-blue-700 dark:bg-blue-500 hover:bg-blue-500 dark:hover:bg-blue-400 hover:scale-105 transition px-1.5 py-1.5 sm:px-2 sm:py-2 flex items-center justify-center space-x-2'>
