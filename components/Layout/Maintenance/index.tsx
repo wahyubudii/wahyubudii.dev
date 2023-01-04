@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import Footer from '../Sections/Footer'
+import Footer from '../../Sections/Footer'
 import { BsArrowLeft } from 'react-icons/bs'
 
 export default function Maintenance() {

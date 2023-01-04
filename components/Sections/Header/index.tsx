@@ -1,16 +1,26 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { AiFillGithub, AiFillLinkedin, AiOutlineMenu, AiOutlineClose } from 'react-icons/ai'
+import { BsFillMoonStarsFill, BsSunFill } from 'react-icons/bs'
+import Button from '../../Commons/Button'
+import { useTheme } from 'next-themes'
 
 export default function Header() {
+    const { systemTheme, theme, setTheme } = useTheme()
+    const [mounted, setMounted] = useState(false)
+
+    useEffect(() => {
+        setMounted(true)
+    }, [])
+
     const itemsNav = [
-        { name: "About", icons: "", url: "/about"},
-        { name: "Blog", icons: "", url: "/blog"},
+        { name: "About", path: "/about"},
+        { name: "Blog", path: "/blog"},
     ]
 
     const socialMedia = [
-        { name: "Github", url: "https://github.com/wahyubudii"},
-        { name: "LinkedIn", url: "https://linkedin.com/in/wahyubudiutomo/"},
+        { name: "Github", url: "https://github.com/wahyubudii", icon: AiFillGithub},
+        { name: "LinkedIn", url: "https://linkedin.com/in/wahyubudiutomo/", icon: AiFillLinkedin},
     ]
 
     const [sidebar, setSidebar] = useState<boolean>(false)
@@ -19,6 +29,25 @@ export default function Header() {
         return setSidebar(!sidebar)
     }
 
+    const renderThemeChanger = () => {
+        if(!mounted) return null
+
+        const currentTheme = theme === 'system' ? systemTheme : theme
+        
+        if (currentTheme === 'dark') {
+            return (
+                <Button onClick={() => setTheme('light')}>
+                    <BsSunFill />
+                </Button>    
+            )
+        } else {
+            return (
+                <Button onClick={() => setTheme('dark')}>
+                    <BsFillMoonStarsFill />
+                </Button>    
+            )
+        }
+    }
 
     return (
         <div className="container mx-auto dark:text-white">
@@ -26,16 +55,17 @@ export default function Header() {
                 <Link href="/" className='font-semibold uppercase'>Wahyu Budi Utomo</Link>
                 <button className='block text-lg sm:hidden' onClick={handleSidebar}><AiOutlineMenu /></button>
                 <div className="hidden sm:inline-flex min-w-max flex items-center justify-end sm:space-x-5 lg:space-x-10">
+                    {renderThemeChanger()}
                     {itemsNav.map((val, index) => {
                         return (
-                            <Link className='font-medium text-sm' key={index} href={val.url}>{val.name}</Link>
+                            <Link className='font-medium text-sm' key={index} href={val.path}>{val.name}</Link>
                         )
                     })}
                     <div className='space-x-4 flex items-center justify-center '>
                         { socialMedia.map((val, index) => {
                             return (
                                 <Link key={index} href={val.url} target={'_blank'}>
-                                    { val.name === "Github" ? <AiFillGithub className='text-black dark:text-white h-6 w-6' /> : <AiFillLinkedin className='text-black dark:text-white h-6 w-6' />}
+                                    <val.icon key={index} className="text-black dark:text-white h-6 w-6"/>
                                 </Link>
                             )
                         })}
@@ -47,18 +77,14 @@ export default function Header() {
                         <div className='mt-7 text-sm font-semibold flex flex-col items-end w-full mx-10 space-y-4'>
                             {itemsNav.map((val, index) => {
                                 return (
-                                    <Link key={index} href={val.url} className='border-b border-slate-400 pb-1'>{val.name}</Link>
+                                    <Link key={index} href={val.path} className='border-b border-slate-400 pb-1'>{val.name}</Link>
                                 )
                             })}
                             <div className='pt-7 space-y-4 flex flex-col items-end justify-end'>
                                 { socialMedia.map((val, index) => {
                                     return (
                                         <Link key={index} href={val.url} target={'_blank'}>
-                                            { val.name === "Github" ? 
-                                            <div className='rounded px-3.5 py-2 w-max bg-white border border-slate-300 flex items-center justify-center font-semibold text-black space-x-3'><AiFillGithub size={20}/><p>Github</p></div>
-                                            : 
-                                            <div className='rounded px-3.5 py-2 w-max bg-white border border-slate-300 flex items-center justify-center font-semibold text-black space-x-3'><AiFillLinkedin size={20}/><p>LinkedIn</p></div>
-                                            }
+                                            <div className='rounded px-3.5 py-2 w-max bg-white border border-slate-300 flex items-center justify-center font-semibold text-black space-x-3'><val.icon key={index} size={20}/><p>{val.name}</p></div>
                                         </Link>
                                     )
                                 })}

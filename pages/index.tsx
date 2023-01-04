@@ -7,6 +7,7 @@ import Hero from '../components/Sections/Hero'
 import Project from '../components/Sections/Projects'
 import { NextSeo } from 'next-seo'
 import { MetaProps } from '../types'
+import Layout from '../components/Layout/BaseLayout'
 
 export default function index() {
   const meta: MetaProps = {
@@ -17,15 +18,15 @@ export default function index() {
   }
   
   return (
-    // use this want scroll-hide "h-screen overflow-y-scroll scrollbar-hide"
-    <div className='bg-gray-50 dark:bg-black'>
-      <NextSeo title={meta.title} description={meta.description} canonical={meta.favicon}/>
-      <Header />
-      <Hero />
-      <Experiences />
-      <Project />
-      <ContactWhatsapp />
-      <Footer />
-    </div>
+    <Layout customMeta={meta}>
+      <div>
+        <div className='py-16 sm:py-20 sm:pb-14 lg:py-16 xl:py-20 lg:flex items-center justify-center'>
+          <Hero />
+        </div>
+        <Experiences />
+        <Project />
+        <ContactWhatsapp />
+      </div>
+    </Layout>
   )
 }
