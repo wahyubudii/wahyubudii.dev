@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { experiencesData } from '../../../datas/experiencesData'
+import { experiencesData } from '../../../data/experiencesData'
 
 export default function Experiences() {
     const [indexActive, setIndexActive] = useState<number>(0)

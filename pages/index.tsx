@@ -1,11 +1,8 @@
 import React from 'react'
 import ContactWhatsapp from '../components/Commons/ContactWhatsapp'
 import Experiences from '../components/Sections/Experiences'
-import Footer from '../components/Sections/Footer'
-import Header from '../components/Sections/Header'
 import Hero from '../components/Sections/Hero'
 import Project from '../components/Sections/Projects'
-import { NextSeo } from 'next-seo'
 import { MetaProps } from '../types'
 import Layout from '../components/Layout/BaseLayout'
 

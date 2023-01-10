@@ -1,20 +1,20 @@
-import React from 'react'
-import Maintenance from '../../components/Layout/Maintenance'
-import { MetaProps } from '../../types'
-import { NextSeo } from 'next-seo'
+import React from "react";
+import Maintenance from "../../components/Sections/Maintenance";
+import { MetaProps } from "../../types";
+import Layout from "../../components/Layout/BaseLayout";
 
 export default function About() {
   const meta: MetaProps = {
     title: "About Page",
-    description: "The personal site, writing and portfolio of Wahyu Budi Utomo, a frontend engineer based in Indonesia.",
+    description:
+      "The personal site, writing and portfolio of Wahyu Budi Utomo, a frontend engineer based in Indonesia.",
     favicon: "/images/logo.png",
-    type: "website"
-  }
+    type: "website",
+  };
 
   return (
-    <div>
-      <NextSeo title={meta.title} description={meta.description} canonical={meta.favicon}/>
+    <Layout center customMeta={meta}>
       <Maintenance />
-    </div>
-  )
+    </Layout>
+  );
 }

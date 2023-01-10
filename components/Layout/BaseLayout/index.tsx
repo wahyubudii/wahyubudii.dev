@@ -1,14 +1,10 @@
-import React from 'react'
-import Header from '../../Sections/Header'
-import Footer from '../../Sections/Footer'
-import Head from 'next/head'
+import React from "react";
+import Header from "../../Sections/Header";
+import Footer from "../../Sections/Footer";
+import Head from "next/head";
+import { LayoutProps } from "../../../types";
 
-type LayoutProps = {
-  children: React.ReactNode,
-  customMeta?: any
-}
-
-export default function Layout({ children, customMeta }: LayoutProps) {
+export default function Layout({ children, customMeta, center }: LayoutProps) {
   return (
     <div>
       <Head>
@@ -16,19 +12,22 @@ export default function Layout({ children, customMeta }: LayoutProps) {
         <meta name="description" content={customMeta.description} />
         <link rel="shortcut icon" href={customMeta.favicon} />
       </Head>
-      <div className='bg-gray-50 dark:bg-black'>
-        <div className='min-h-screen flex flex-col'>
+      {/* paste this ig want scrollhide but have problem with rough notation `h-screen overflow-y-scroll scrollbar-hide` */}
+      <div className="bg-gray-50 dark:bg-black">
+        <div className="min-h-screen flex flex-col">
           <Header />
-          <main className='flex-grow'>
-            <div className='container mx-auto dark:text-white'>
-              <div className='mx-10 sm:mx-20 lg:mx-24 xl:mx-40'>
-                {children}
-              </div>
+          <main
+            className={`flex-grow flex ${
+              center && "items-center"
+            } justify-center`}
+          >
+            <div className="container mx-auto dark:text-white">
+              <div className="mx-10 sm:mx-20 lg:mx-24 xl:mx-40">{children}</div>
             </div>
           </main>
           <Footer />
         </div>
       </div>
     </div>
-  )
+  );
 }

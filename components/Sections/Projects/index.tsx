@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import { AiFillGithub } from 'react-icons/ai'
 import { IoEarthSharp } from 'react-icons/io5'
-import { projectsData } from '../../../datas/projectsData'
+import { projectsData } from '../../../data/projectsData'
 
 export default function Project() {
   return (
@@ -18,14 +18,14 @@ export default function Project() {
               <div className='flex items-center justify-between'>
                 <h1 className='sm:text-[14px] lg:text-lg font-bold pr-4 group-hover:text-white'>{val.name}</h1>
                 <div className='flex gap-4'>
-                  <Link href={val.urlLink} target="_blank"><IoEarthSharp className={`lg:w-6 lg:h-6 ${val.urlLink ? "visible" : "hidden"} group-hover:text-white`} /></Link>
+                <Link href={val.urlLink} target="_blank"><IoEarthSharp className={`lg:w-6 lg:h-6 ${val.urlLink ? "visible" : "hidden"} group-hover:text-white`} /></Link>
                   <Link href={val.githubLink} target="_blank"><AiFillGithub className='lg:w-6 lg:h-6 group-hover:text-white' /></Link>
                 </div>
               </div>
               <p className='mt-4 text-[11px] lg:text-[12px] xl:text-sm line-clamp-4 xl:line-clamp-5 text-gray-600 group-hover:text-gray-200 dark:text-gray-300'>{val.description}</p>
               <div className='mt-6 flex flex-wrap gap-2'>
                 { val.techStacks.map((techStack, idx) => {
-                  return <p key={idx} className='text-[10px] lg:text-[10px] xl:text-[11px] font-medium text-blue-600 dark:text-white bg-gray-100 dark:bg-slate-600 rounded-full px-3 py-1 w-fit group-hover:bg-blue-500 dark:group-hover:dark:bg-slate-500 group-hover:text-white'>{techStack}</p>
+                  return <p key={idx} className='text-[10px] lg:text-[10px] xl:text-[11px] font-medium text-blue-600 dark:text-white bg-gray-100 dark:bg-slate-600 rounded-full px-3 py-1 w-fit group-hover:bg-blue-500 dark:group-hover:bg-slate-500 group-hover:text-white'>{techStack}</p>
                 })}
               </div>
             </div>

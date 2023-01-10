@@ -1,10 +1,12 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
+  mode: 'jit',
+  darkMode: 'class',
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
-  darkMode: 'class',
   theme: {
     listStyleType: {
       none: 'none',
@@ -35,14 +37,14 @@ module.exports = {
         8: '8',
         9: '9',
         10: '10',
-      }
+      },
     },
   },
   variants: {
     lineClamp: ['responsive', 'hover'],
     extends: {
       visibility: ["group-hover"],
-    }
+    },
   },
   plugins: [
     require('@tailwindcss/line-clamp'),
