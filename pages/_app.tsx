@@ -13,8 +13,8 @@ Router.events.on("routeChangeComplete", nProgress.done);
 export default function App({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <ThemeProvider attribute="class" enableSystem={false} defaultTheme="light">
+      {/* <div className="absolute top-0 h-80 w-full bg-gradient-to-r from-sky-200 via-gray-400 to-blue-400 blur-2xl opacity-30 z-0"></div> */}
       <Component {...pageProps} />
-      {/* <div className="absolute top-0 h-32 w-full bg-gradient-to-r from-green-200 via-blue-500 to-violet-300 blur-2xl opacity-30"></div> */}
     </ThemeProvider>
   );
 }

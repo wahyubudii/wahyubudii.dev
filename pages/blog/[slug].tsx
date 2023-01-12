@@ -96,7 +96,7 @@ export default function PostDetail({
 
   return (
     <Layout customMeta={meta}>
-      <div className="lg:mx-24 xl:mx-32 2xl:mx-52">
+      <div className="lg:mx-24 xl:mx-32 2xl:mx-40">
         <div className="pt-6 flex items-center font-medium text-xs 2xl:text-sm text-slate-500 dark:text-slate-300">
           <Link href="/" className="hover:text-blue-500">
             Home
@@ -122,7 +122,7 @@ export default function PostDetail({
               return (
                 <Link
                   key={index}
-                  className="rounded-full border p-2 dark:bg-white"
+                  className="rounded-full border p-2 bg-white"
                   href={val.link}
                 >
                   <val.icon size={20} color={val.color} />
@@ -130,7 +130,7 @@ export default function PostDetail({
               );
             })}
           </div>
-          <div className="text-xs sm:text-sm 2xl:text-base mt-5">
+          <div className="prose dark:prose-dark font-sans max-w-full text-justify text-sm xl:text-lg 2xl:text-xl mt-5">
             <MDXRemote {...mdxSource} components={components} />
           </div>
         </div>

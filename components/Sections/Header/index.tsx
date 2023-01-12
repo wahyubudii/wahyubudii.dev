@@ -96,7 +96,7 @@ export default function Header() {
           <div
             className={`${
               sidebar
-                ? "inline-flex z-10 fixed top-0 right-0 border-l border-slate-300 dark:border-slate-500 transition ease-in-out"
+                ? "inline-flex fixed top-0 right-0 border-l border-slate-300 dark:border-slate-500 transition ease-in-out"
                 : "hidden"
             } w-8/12 h-full bg-white dark:bg-black/95`}
           >

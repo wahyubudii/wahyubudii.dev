@@ -50,11 +50,9 @@ export default function Blog({ posts }: any): JSX.Element {
     type: "website",
   };
 
-  console.log(posts);
-
   return (
     <Layout customMeta={meta}>
-      <div className="pt-6 flex items-center font-medium text-xs 2xl:text-sm text-slate-500 dark:text-slate-300">
+      <div className="pt-6 flex items-center font-medium text-xs 2xl:text-sm text-gray-500 dark:text-gray-300">
         <Link href="/" className="hover:text-blue-500">
           Home
         </Link>
@@ -64,8 +62,8 @@ export default function Blog({ posts }: any): JSX.Element {
         </Link>
       </div>
       <div className="pt-8 md:pt-10 2xl:pt-14 pb-8">
-        <h1 className="text-4xl font-bold">Code Tips</h1>
-        <p className="pb-10 pt-4 text-sm lg:text-base">
+        <h1 className="text-4xl font-bold">Note Tips</h1>
+        <p className="pb-10 pt-4 text-sm lg:text-base dark:text-gray-200">
           Here is a collection of notes that I often use in making programs that
           might be useful for you
         </p>
@@ -75,12 +73,12 @@ export default function Blog({ posts }: any): JSX.Element {
               <Link
                 href={`/blog/${val.slug}`}
                 key={index}
-                className="relative flex items-center rounded-lg border-2 border-dashed border-slate-400 dark:border-white p-5 hover:scale-105 transition hover:bg-green-50 dark:hover:bg-slate-700 dark:text-white"
+                className="relative flex items-center rounded-lg border-2 border-dashed border-gray-400 dark:border-white p-5 hover:scale-105 transition hover:bg-green-50 dark:hover:bg-gray-700 dark:text-white"
               >
                 <div className="flex gap-6 md:gap-7">
-                  <div className="flex-none bg-slate-100 rounded-full h-20 w-20 md:h-24 md:w-24 p-1 flex overflow-hidden">
+                  <div className="flex-none bg-gray-100 rounded-full h-20 w-20 md:h-24 md:w-24 p-1 flex overflow-hidden">
                     <Image
-                      className="self-center"
+                      className="self-center p-3"
                       src={val.frontMatter.thumbnailUrl}
                       alt="photo"
                       height={200}
@@ -91,7 +89,7 @@ export default function Blog({ posts }: any): JSX.Element {
                     <p className="text-lg md:text-xl font-bold">
                       {val.frontMatter.title}
                     </p>
-                    <p className="pt-1 text-xs text-slate-500 dark:text-slate-200 md:text-sm pb-2">
+                    <p className="pt-1 text-xs text-gray-500 dark:text-gray-200 md:text-sm pb-2">
                       {val.frontMatter.description}
                     </p>
                     <div className="pt-2 flex flex-wrap items-center gap-2">
