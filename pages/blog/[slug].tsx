@@ -130,7 +130,7 @@ export default function PostDetail({
               );
             })}
           </div>
-          <div className="prose dark:prose-dark font-sans max-w-full text-justify text-sm xl:text-lg 2xl:text-xl mt-5">
+          <div className="prose dark:prose-dark font-sans max-w-full text-justify text-sm xl:text-lg mt-5">
             <MDXRemote {...mdxSource} components={components} />
           </div>
         </div>

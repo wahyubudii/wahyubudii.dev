@@ -9,7 +9,7 @@ tags: ["tailwind", "CSS", "styling"]
 <Image
   alt="main-photo"
   className="py-4 rounded-xl"
-  src="/images/posts/tailwind-setup/1.png"
+  src="/images/posts/tailwind-setup.png"
   height={680}
   width={1280}
   priority
@@ -52,8 +52,14 @@ documentation of TailwindCSS.
    ```
 
 5. **Implement tailwindcss to your public CSS**.\
-   also add this script to your `index.css`.\
-   i prefer you to create a new css file inside the folder `./styles/index.css`
+   i prefer you to create a new css file inside the folder `./styles/index.css`\
+   also add this script to your `index.css`.
+
+   ```css
+   @tailwind base;
+   @tailwind components;
+   @tailwind utilities;
+   ```
 
 6. **Change the css link inside file `_app.tsx`**.\
    you can adjust your `index.css` to be your public css in this project, like this
@@ -82,6 +88,6 @@ documentation of TailwindCSS.
 
 Source: [Tailwind CSS NextJS](https://tailwindcss.com/docs/guides/nextjs)
 
-<div className="mt-20">
+<div className="mt-24">
   <Button prevPage>Kembali</Button>
 </div>

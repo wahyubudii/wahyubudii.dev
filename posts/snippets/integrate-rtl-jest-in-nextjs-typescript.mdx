@@ -6,38 +6,145 @@ thumbnailUrl: "/logo/rtl.png"
 tags: ["jest", "RTL", "unit testing", "typescript", "next js"]
 ---
 
-<div>
-  This is a blog post about <strong>functions</strong>. <br />
-  We'll learn what functions are, how to write functions, and how to use them.
-</div>
+<Image
+  alt="main-photo"
+  className="py-4 rounded-xl"
+  src="/images/posts/rtl-jest.png"
+  height={680}
+  width={1280}
+  priority
+/>
 
-<br />
+In this blog I will explain about Jest and RTL (React Testing Library) configuration with TypeScript in NextJS, but you need to know that this tutorial takes it from the official documentation. You can check it [here.](https://nextjs.org/docs/testing#setting-up-jest-with-the-rust-compiler)
 
-### This is a Markdown sub-heading
+If you open the link above, you will know that there are many types of unit testing. However, this time I will only discuss Jest and RTL.
+**So let's start it**
 
-We just used a `###` subheading in our blog post.
+### Installation & configuration
 
-<br />
+1. **Create your NextJS Project first**.\
+   if you already created NextJS you can skip this step, Use your fav terminal and add this command.\
+   Don't forget to open after it.
 
-<SyntaxHighlighter language="javascript">
-  {`
-    const doStuff = () => {
-      return console.log('hey')
+   `npx create-next-app@latest my-project --typescript --eslint`
+
+2. **Open the terminal and add this command**.
+
+   `npm install --save-dev jest jest-environment-jsdom @testing-library/react @testing-library/jest-dom`
+
+3. **Create `jest.config.js` & `jest.setup.js` in project's root directory**.\
+    Make sure that you already created it, and add the following code.
+
+   **js.config.js**
+
+   ```javascript
+   const nextJest = require("next/jest");
+
+   const createJestConfig = nextJest({
+     // Provide the path to your Next.js app to load next.config.js and .env files in your test environment
+     dir: "./",
+   });
+
+   // Add any custom config to be passed to Jest
+   /\*_ @type {import('jest').Config} _/;
+   const customJestConfig = {
+     setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
+     moduleNameMapper: {
+       "^@/components/(.*)$": "<rootDir>/components/$1",
+       "^@/pages/(.*)$": "<rootDir>/pages/$1",
+     },
+     moduleDirectories: ["node_modules", "<rootDir>/"],
+     testEnvironment: "jest-environment-jsdom",
+   };
+
+   // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
+   module.exports = createJestConfig(customJestConfig);
+   ```
+
+   **js.setup.js**
+
+   ```javascript
+   import "@testing-library/jest-dom/extend-expect";
+   ```
+
+4. **Go to package.json file**.\
+    add this code inside the file especially in script attribute like this
+
+   ```json
+   "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test": "jest",
+    "coverage": "jest --coverage"
+   },
+   ```
+
+5. **Go to tsconfig.json file**.\
+    add this code inside the file for make short paths when you call every components
+
+   ```json
+    "paths": {
+      "@/pages/*": ["./pages/*"],
+      "@/components/*": ["./components/*"],
     }
-  `}
-</SyntaxHighlighter>
-<br />
+   ```
 
-```
-  // this is a code block
-  const doSomething = () => {
-    return console.log('hey')
-  }
-```
+6. **Start to make unit-testing**.\
+    Before make testing, i suggest you to check on official page and learn step by step make unit testing. You can check [Jest](https://jestjs.io/docs/getting-started) && [React Testing Library](https://testing-library.com/docs/react-testing-library/example-intro)
+   For example here i would to test my dashboard pages. So inside the folder dashboard, create new folder name is `__test__` and file testing **index.test.jsx** like this
 
-<br />
+   ![image](https://user-images.githubusercontent.com/79882296/212217632-0211a2f9-ab85-4fff-8ce0-d13043de1465.png)
 
-<div>
-  Here, I'm using a component inside my MarkDown file:{" "}
-  {<Button text={"Click me"} />}
+   and here is the code of `dashboard.tsx`
+
+   ```typescript
+   import React from "react";
+
+   export default function Dashboard() {
+     return (
+       <div>
+         <h1>Hello World</h1>
+       </div>
+     );
+   }
+   ```
+
+   here we go again...\
+    open `index.test.tsx` file inside the `__test__` folder\
+    and the scenario is i would testing render from dashboard pages.\
+    **for example**
+
+   ```typescript
+   import { render, screen } from "@testing-library/react";
+   import "@testing-library/jest-dom";
+   import Dashboard from "@/pages/Dashboard";
+
+   describe("Dashboard page", () => {
+     it("Should render properly", () => {
+       render(<Dashboard />);
+
+       const header = screen.getByRole("heading");
+       const headerText = "Hello World";
+
+       expect(header).toHaveTextContent(headerText);
+     });
+   });
+   ```
+
+7. **Run testing via terminal.**\
+    add this command to your terminal `npm t` or `npm test` for testing without percentage result and using `npm coverage` to show percentage result unit-testing.
+
+   `Result`
+   ![image](https://user-images.githubusercontent.com/79882296/212219217-39890b5e-6213-43de-a313-c67b60508581.png)
+
+   > > ### Voila.. 🎉✨🎉
+   > >
+   > > ### now you can jest & react testin library in nextjs project
+
+Source: [NextJS Testing RTL & Jest](https://nextjs.org/docs/testing#jest-and-react-testing-library)
+
+<div className="mt-24">
+  <Button prevPage>Kembali</Button>
 </div>
