@@ -8,3 +8,8 @@ export function capitalize(text: string) {
 
   return result;
 }
+
+export function textCapitalize(text: string) {
+  const result = capitalize(text.replace(/-/gi, " "));
+  return result
+}

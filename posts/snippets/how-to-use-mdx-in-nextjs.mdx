@@ -1,38 +1,675 @@
 ---
-title: "How to Use MDX in NextJS Project"
+title: "How to Use MDX in NextJS Project with Tailwind Typography"
 date: "09 Januari, 2023"
 description: "Core compiler for turning MDX into JavaScript"
 thumbnailUrl: "/logo/mdx.png"
 tags: ["MDX", "content management"]
 ---
 
-<div>
-  This is a blog post about <strong>Tailwind CSS</strong>. <br />
-  We'll learn how to set up and use Tailwind CSS.
-</div>
+<Image
+  alt="main-photo"
+  className="py-4 rounded-xl"
+  src="/images/posts/mdx-next.png"
+  height={680}
+  width={1280}
+  priority
+/>
 
-<br />
+In this blog I will explain about Jest and RTL (React Testing Library) configuration with TypeScript in NextJS, but you need to know that this tutorial takes it from the official documentation. You can check it [here.](https://nextjs.org/docs/testing#setting-up-jest-with-the-rust-compiler)
 
-### This is a Markdown sub-heading
+If you open the link above, you will know that there are many types of unit testing. However, this time I will only discuss Jest and RTL.
+**So let's start it**
 
-We just used a `###` subheading in our blog post.
+### Installation & configuration
 
-<SyntaxHighlighter language="javascript">
-  {`
-    const doStuff = () => {
-      return console.log('hey')
-    }
-  `}
-</SyntaxHighlighter>
+1. **Create your NextJS Project first**.\
+   I suggest you to clone the project without having to do setup again. Click [here](https://github.com/wahyubudii/nextjs-tailwindcss-mdx) and open project after it using your text editor.
 
-```javascript
-// this is a code block
-const doSomething = () => {
-  return console.log("hey");
-};
-```
+   `cd nextjs-tailwindcss-mdx`
 
-<div>
-  Here, I'm using a component inside my MarkDown file:{" "}
-  {<Button text={"Click me"} />}
+2. **Open the terminal and add this command**.
+
+   `npm install gray-matter mdx-prism next-mdx-remote rehype-slug rehype-autolink-headings remark-code-titles`
+
+3. **Make getStaticProps inside the blog page**.
+
+   ```typescript
+   export const getStaticProps: GetStaticProps = async () => {
+     const files = fs.readdirSync(path.join(process.cwd(), "posts"));
+
+     const posts = files.map((filename: any) => {
+       const markdownWithMeta = fs.readFileSync(
+         path.join(process.cwd(), "posts", filename)
+       );
+       const { data: frontMatter } = matter(markdownWithMeta);
+
+       return {
+         frontMatter,
+         slug: filename.split(".")[0],
+       };
+     });
+
+     return {
+       props: {
+         posts,
+       },
+     };
+   };
+   ```
+
+   Use the data render from getStaticProps inside Blog Components to be like this:
+
+   ```typescript
+   export default function Blog({ posts }: any): JSX.Element {
+     return (
+       <Layout>
+         <div className="mt-24">
+           <div className="space-y-3 mb-10">
+             <h1 className="text-4xl font-bold">Blog</h1>
+             <p>Simple blog with tailwind typography and mdx</p>
+           </div>
+           <div className="grid grid-cols-2 gap-5">
+             {posts.map((val: any, index: number) => {
+               return <Card data={val} key={index} />;
+             })}
+           </div>
+         </div>
+       </Layout>
+     );
+   }
+   ```
+
+   therefor the results is like this
+
+   ```typescript
+   import Card from "@/components/Commons/Card";
+   import Layout from "@/components/Layout";
+   import React from "react";
+   import { data } from "../../data";
+   import { GetStaticProps } from "next";
+   import fs from "fs";
+   import path from "path";
+   import matter from "gray-matter";
+
+   export const getStaticProps: GetStaticProps = async () => {
+     const files = fs.readdirSync(path.join(process.cwd(), "posts"));
+
+     const posts = files.map((filename: any) => {
+       const markdownWithMeta = fs.readFileSync(
+         path.join(process.cwd(), "posts", filename)
+       );
+       const { data: frontMatter } = matter(markdownWithMeta);
+
+       return {
+         frontMatter,
+         slug: filename.split(".")[0],
+       };
+     });
+
+     return {
+       props: {
+         posts,
+       },
+     };
+   };
+
+   export default function Blog({ posts }: any): JSX.Element {
+     return (
+       <Layout>
+         <div className="mt-24">
+           <div className="space-y-3 mb-10">
+             <h1 className="text-4xl font-bold">Blog</h1>
+             <p>Simple blog with tailwind typography and mdx</p>
+           </div>
+           <div className="grid grid-cols-2 gap-5">
+             {posts.map((val: any, index: number) => {
+               return <Card data={val} key={index} />;
+             })}
+           </div>
+         </div>
+       </Layout>
+     );
+   }
+   ```
+
+4. **Make the detail blog from blog pages**.\
+    add new file inside blog page folder that is `[slug].tsx`.
+
+   so the blog folder to be like this
+
+   ![image](https://user-images.githubusercontent.com/79882296/212851442-452cc414-ba46-4fd8-b6f8-717837467737.png)
+
+   and add this code inside it
+
+   ```typescript
+   import Layout from "@/components/Layout";
+   import Link from "next/link";
+   import React from "react";
+
+   export default function BlogDetail() {
+     return (
+       <Layout>
+         <div className="lg:mx-24 xl:mx-32 2xl:mx-40">
+           <div className="pt-6 flex items-center font-medium text-xs 2xl:text-sm text-slate-500 dark:text-slate-300">
+             <Link href="/" className="hover:text-blue-500">
+               Home
+             </Link>
+             <span className="mx-3 after:content-['/']"></span>
+             <Link href="/blog" className="hover:text-blue-500">
+               Blog
+             </Link>
+             <span className="mx-3 after:content-['/']"></span>
+             <Link href="#" className="text-blue-500 dark:text-blue-400">
+               this is title page
+             </Link>
+           </div>
+           <div className="pt-8 sm:pt-12 pb-8">
+             <h1 className="text-xl sm:text-3xl lg:text-4xl font-bold">
+               this is title page
+             </h1>
+             <p className="mt-2 text-xs sm:text-sm text-slate-700 dark:text-slate-200">
+               this is date blog
+             </p>
+             <div className="prose dark:prose-dark font-sans max-w-full text-justify text-sm xl:text-lg mt-5">
+               this is content of blog page
+             </div>
+           </div>
+         </div>
+       </Layout>
+     );
+   }
+   ```
+
+5. **Go to tsconfig.json file**.\
+    make **strict mode** to be **false**, this is so that we can use the mdx-prism library. Because for now mdx-prism is not detected with TypeScript
+
+   ```json
+    "compilerOptions": {
+      "strict": false,
+    },
+   ```
+
+6. **Back to [slug].tsx**.\
+    now we make getStaticPaths. The getStaticPath function is used to generate all dynamic website pages, for example blog details when our web app is built by Next on the server side. This function must be exported async outside the function component
+
+   ```typescript
+   export const getStaticPaths: GetStaticPaths = async () => {
+     const files = fs.readdirSync(path.join(process.cwd(), "posts"));
+
+     const paths = files.map((filename) => ({
+       params: {
+         slug: filename.replace(".mdx", ""),
+       },
+     }));
+
+     return {
+       paths,
+       fallback: false,
+     };
+   };
+   ```
+
+   after we make getStaticPath, also we make getStaticProps to make return object which we will send the return to props. getStaticProps need params **paths** what we get from getStaticPath is the **slug**. So add this code inside it. **Dont forget to import all library used**
+
+   ```typescript
+   export const getStaticProps: GetStaticProps = async ({
+     params: { slug },
+   }: any) => {
+     const markdownWithMeta = fs.readFileSync(
+       path.join(process.cwd(), "posts", `${slug}.mdx`)
+     );
+
+     const { data: frontMatter, content } = matter(markdownWithMeta);
+     const mdxSource = await serialize(content, {
+       mdxOptions: {
+         remarkPlugins: [require("remark-code-titles")],
+         rehypePlugins: [mdxPrism, rehypeSlug, rehypeAutolinkHeadings],
+       },
+       scope: frontMatter,
+     });
+
+     return {
+       props: {
+         frontMatter,
+         mdxSource,
+       },
+     };
+   };
+   ```
+
+   if all is done, so the next is we have to make blogComponent to get the return from getStaticProps via props, like this
+
+   ```typescript
+   export default function BlogDetail({
+     frontMatter,
+     mdxSource,
+   }: PostPageProps): JSX.Element {
+     return (
+       <Layout>
+         <div className="lg:mx-24 xl:mx-32 2xl:mx-40">
+           <div className="pt-6 flex items-center font-medium text-xs 2xl:text-sm text-slate-500 dark:text-slate-300">
+             <Link href="/" className="hover:text-blue-500">
+               Home
+             </Link>
+             <span className="mx-3 after:content-['/']"></span>
+             <Link href="/blog" className="hover:text-blue-500">
+               Blog
+             </Link>
+             <span className="mx-3 after:content-['/']"></span>
+             <Link href="#" className="text-blue-500 dark:text-blue-400">
+               this is title page
+             </Link>
+           </div>
+           <div className="pt-8 sm:pt-12 pb-8">
+             <h1 className="text-xl sm:text-3xl lg:text-4xl font-bold">
+               this is title page
+             </h1>
+             <p className="mt-2 text-xs sm:text-sm text-slate-700 dark:text-slate-200">
+               this is date blog
+             </p>
+             <div className="prose dark:prose-dark font-sans max-w-full text-justify text-sm xl:text-lg mt-5">
+               {/* CONTENT is HERE */}
+             </div>
+           </div>
+         </div>
+       </Layout>
+     );
+   }
+   ```
+
+   after you add the props, so next step is we have to make static component that you need to call inside .mdx file. For example we have Image component inside the .mdx file. So we have to call it in new static component.
+
+   ```typescript
+   const components = {
+     Image,
+   };
+   ```
+
+   you can adjust the component that you are used. But for example we just need Image component from next/image.
+
+   after it we have to call **MDXRemote** to mount content overall from .mdx file in the BlogDetail component which is change the **{/* CONTENT is HERE */}** to be like this
+
+   ```typescript
+   export default function BlogDetail({
+     frontMatter,
+     mdxSource,
+   }: PostPageProps): JSX.Element {
+     return (
+       <Layout>
+         <div className="lg:mx-24 xl:mx-32 2xl:mx-40">
+           <div className="pt-6 flex items-center font-medium text-xs 2xl:text-sm text-slate-500 dark:text-slate-300">
+             <Link href="/" className="hover:text-blue-500">
+               Home
+             </Link>
+             <span className="mx-3 after:content-['/']"></span>
+             <Link href="/blog" className="hover:text-blue-500">
+               Blog
+             </Link>
+             <span className="mx-3 after:content-['/']"></span>
+             <Link href="#" className="text-blue-500 dark:text-blue-400">
+               this is title page
+             </Link>
+           </div>
+           <div className="pt-8 sm:pt-12 pb-8">
+             <h1 className="text-xl sm:text-3xl lg:text-4xl font-bold">
+               this is title page
+             </h1>
+             <p className="mt-2 text-xs sm:text-sm text-slate-700 dark:text-slate-200">
+               this is date blog
+             </p>
+             <div className="prose dark:prose-dark font-sans max-w-full text-justify text-sm xl:text-lg mt-5">
+               this is content of blog page
+               <MDXRemote {...mdxSource} components={components} />
+             </div>
+           </div>
+         </div>
+       </Layout>
+     );
+   }
+   ```
+
+   and the last step is we have to adjust the title, date and image of the blog. change all of **this is title page** to be `{frontMatter.title}` and **this is date blog** to be `{frontMatter.date}`
+
+   so overall the BlogDetail to be like this
+
+   ```typescript
+   import Layout from "@/components/Layout";
+   import Link from "next/link";
+   import React from "react";
+   import { GetStaticPaths, GetStaticProps } from "next";
+   import fs from "fs";
+   import path from "path";
+   import mdxPrism from "mdx-prism";
+   import rehypeSlug from "rehype-slug";
+   import rehypeAutolinkHeadings from "rehype-autolink-headings";
+   import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
+   import { serialize } from "next-mdx-remote/serialize";
+   import matter from "gray-matter";
+   import Image from "next/image";
+
+   const components = {
+     Image,
+   };
+
+   type PostPageProps = {
+     frontMatter: {
+       title: string;
+       date: string;
+       description: string;
+       thumbnailUrl: string;
+       tags: string | any;
+     };
+     mdxSource: MDXRemoteSerializeResult;
+   };
+
+   export const getStaticPaths: GetStaticPaths = async () => {
+     const files = fs.readdirSync(path.join(process.cwd(), "posts"));
+
+     const paths = files.map((filename) => ({
+       params: {
+         slug: filename.replace(".mdx", ""),
+       },
+     }));
+
+     return {
+       paths,
+       fallback: false,
+     };
+   };
+
+   export const getStaticProps: GetStaticProps = async ({
+     params: { slug },
+   }: any) => {
+     const markdownWithMeta = fs.readFileSync(
+       path.join(process.cwd(), "posts", `${slug}.mdx`)
+     );
+
+     const { data: frontMatter, content } = matter(markdownWithMeta);
+     const mdxSource = await serialize(content, {
+       mdxOptions: {
+         remarkPlugins: [require("remark-code-titles")],
+         rehypePlugins: [mdxPrism, rehypeSlug, rehypeAutolinkHeadings],
+       },
+       scope: frontMatter,
+     });
+
+     return {
+       props: {
+         frontMatter,
+         mdxSource,
+       },
+     };
+   };
+
+   export default function BlogDetail({
+     frontMatter,
+     mdxSource,
+   }: PostPageProps): JSX.Element {
+     return (
+       <Layout>
+         <div className="lg:mx-24 xl:mx-32 2xl:mx-40">
+           <div className="pt-6 flex items-center font-medium text-xs 2xl:text-sm text-slate-500 dark:text-slate-300">
+             <Link href="/" className="hover:text-blue-500">
+               Home
+             </Link>
+             <span className="mx-3 after:content-['/']"></span>
+             <Link href="/blog" className="hover:text-blue-500">
+               Blog
+             </Link>
+             <span className="mx-3 after:content-['/']"></span>
+             <Link href="#" className="text-blue-500 dark:text-blue-400">
+               {frontMatter.title}
+             </Link>
+           </div>
+           <div className="pt-8 sm:pt-12 pb-8">
+             <h1 className="text-xl sm:text-3xl lg:text-4xl font-bold">
+               {frontMatter.title}
+             </h1>
+             <p className="mt-2 text-xs sm:text-sm text-slate-700 dark:text-slate-200">
+               {frontMatter.date}
+             </p>
+             <div className="prose dark:prose-dark font-sans max-w-full text-justify text-sm xl:text-lg mt-5">
+               <MDXRemote {...mdxSource} components={components} />
+             </div>
+           </div>
+         </div>
+       </Layout>
+     );
+   }
+   ```
+
+   and the result of blog is like this
+
+   ![image](https://user-images.githubusercontent.com/79882296/213086645-97d8595c-7832-4791-a7e8-3d7dab75f9f7.png)
+
+   but wait a seconds, this is not finished. The next is we have to use tailwind typography to make blog page better
+
+7. **Styling blog page with tailwindcss typography**.\
+    install library from @tailwindcss/typographym with this command
+
+   `npm install -D @tailwindcss/typography`
+
+   open `tailwind.config.js` file and change to be like this
+
+   ```javascript
+   /** @type {import('tailwindcss').Config} */
+
+   const { spacing } = require("tailwindcss/defaultTheme");
+
+   module.exports = {
+     content: [
+       "./pages/**/*.{js,ts,jsx,tsx}",
+       "./components/**/*.{js,ts,jsx,tsx}",
+     ],
+     theme: {
+       extend: {
+         typography: (theme) => ({
+           DEFAULT: {
+             css: {
+               color: theme("colors.gray.700"),
+               a: {
+                 color: theme("colors.blue.500"),
+                 "&:hover": {
+                   color: theme("colors.blue.700"),
+                 },
+                 code: { color: theme("colors.blue.400") },
+               },
+               "h2,h3,h4": {
+                 "scroll-margin-top": spacing[32],
+               },
+               code: { color: theme("colors.pink.500") },
+               "blockquote p:first-of-type::before": false,
+               "blockquote p:last-of-type::after": false,
+             },
+           },
+           dark: {
+             css: {
+               color: theme("colors.gray.300"),
+               a: {
+                 color: theme("colors.blue.400"),
+                 "&:hover": {
+                   color: theme("colors.blue.600"),
+                 },
+                 code: { color: theme("colors.blue.400") },
+               },
+               blockquote: {
+                 borderLeftColor: theme("colors.gray.700"),
+                 color: theme("colors.gray.300"),
+               },
+               "h2,h3,h4": {
+                 color: theme("colors.gray.100"),
+                 "scroll-margin-top": spacing[32],
+               },
+               hr: { borderColor: theme("colors.gray.700") },
+               ol: {
+                 li: {
+                   "&:before": { color: theme("colors.gray.500") },
+                 },
+               },
+               ul: {
+                 li: {
+                   "&:before": { backgroundColor: theme("colors.gray.500") },
+                 },
+               },
+               strong: { color: theme("colors.gray.300") },
+               thead: {
+                 color: theme("colors.gray.100"),
+               },
+               tbody: {
+                 tr: {
+                   borderBottomColor: theme("colors.gray.700"),
+                 },
+               },
+             },
+           },
+         }),
+         colors: {
+           primary: "#4F46E5",
+           secondary: "#6B7280",
+           base: "#6B7280",
+         },
+       },
+     },
+     variants: {
+       typography: ["dark"],
+     },
+     plugins: [require("@tailwindcss/typography")],
+   };
+   ```
+
+   now the result is better, but this is not finished
+
+   ![image](https://user-images.githubusercontent.com/79882296/213089210-d2fd2f0e-a0a0-484d-9f9c-b81534e1f964.png)
+
+   and lastly we make finish style to be more better
+
+8. **Go to index.css file**.\
+    add this styling code inside it
+
+   ```css
+   * {
+     -ms-overflow-style: none;
+   }
+   ::-webkit-scrollbar {
+     display: none;
+   }
+
+   main {
+     font-family: "Poppins", sans-serif;
+   }
+
+   /* Post styles */
+   .prose pre {
+     @apply bg-gray-50 border border-gray-200 dark:border-gray-700 dark:bg-gray-900;
+   }
+
+   .prose code {
+     @apply text-gray-800 dark:text-gray-200 px-1 py-0.5 border border-gray-100 dark:border-gray-800 rounded-md bg-gray-100 dark:bg-gray-900;
+   }
+
+   .prose img {
+     /* Don't apply styles to next/image */
+     @apply m-0;
+   }
+
+   /* Prism Styles */
+   .token.comment,
+   .token.prolog,
+   .token.doctype,
+   .token.cdata {
+     @apply text-gray-700 dark:text-gray-300;
+   }
+
+   .token.punctuation {
+     @apply text-gray-700 dark:text-gray-300;
+   }
+
+   .token.property,
+   .token.tag,
+   .token.boolean,
+   .token.number,
+   .token.constant,
+   .token.symbol,
+   .token.deleted {
+     @apply text-green-500;
+   }
+
+   .token.selector,
+   .token.attr-name,
+   .token.string,
+   .token.char,
+   .token.builtin,
+   .token.inserted {
+     @apply text-purple-500;
+   }
+
+   .token.operator,
+   .token.entity,
+   .token.url,
+   .language-css .token.string,
+   .style .token.string {
+     @apply text-yellow-500;
+   }
+
+   .token.atrule,
+   .token.attr-value,
+   .token.keyword {
+     @apply text-blue-500;
+   }
+
+   .token.function,
+   .token.class-name {
+     @apply text-pink-500;
+   }
+
+   .token.regex,
+   .token.important,
+   .token.variable {
+     @apply text-yellow-500;
+   }
+
+   code[class*="language-"],
+   pre[class*="language-"] {
+     @apply text-gray-800 dark:text-gray-50;
+   }
+
+   pre::-webkit-scrollbar {
+     display: none;
+   }
+
+   pre {
+     -ms-overflow-style: none; /* IE and Edge */
+     scrollbar-width: none; /* Firefox */
+   }
+
+   /* Remark Styles */
+   .remark-code-title {
+     @apply text-gray-800 dark:text-gray-200 px-5 py-3 border border-b-0 border-gray-200 dark:border-gray-700 rounded-t bg-gray-200 dark:bg-gray-800 text-sm font-mono font-bold;
+   }
+
+   .remark-code-title + pre {
+     @apply mt-0 rounded-t-none;
+   }
+
+   .mdx-marker {
+     @apply block -mx-4 px-4 bg-gray-100 dark:bg-gray-800 border-l-4 border-blue-500;
+   }
+   ```
+
+   This is the final design
+
+   ![image](https://user-images.githubusercontent.com/79882296/213089839-a3291224-0f01-45d1-9203-459cca86931d.png)
+
+   this is more better than before.
+
+   You can check the result [here](https://github.com/wahyubudii/nextjs-tailwindcss-mdx-result)
+
+> > ### Voila.. 🎉✨🎉
+> >
+> > ### now you can make make blog page with MDX, tailwind typography in NextJS TypeScript project
+
+Source: [Youtube](https://www.youtube.com/watch?v=WCGopHwXnic) || [Tailwind Typography](https://tailwindcss.com/docs/typography-plugin)
+
+<div className="mt-24">
+  <Button prevPage>Kembali</Button>
 </div>

@@ -6,38 +6,88 @@ thumbnailUrl: "/logo/redux.png"
 tags: ["state management", "typescript", "next js"]
 ---
 
-<div>
-  This is a blog post about <strong>functions</strong>. <br />
-  We'll learn what functions are, how to write functions, and how to use them.
-</div>
+<Image
+  alt="main-photo"
+  className="py-4 rounded-xl w-auto-h-auto"
+  src="/images/posts/redux-next.png"
+  height={680}
+  width={1280}
+  priority
+/>
 
-<br />
+This is the **simple** way to configuration your NextJS Project with
+TailwindCSS. I'll guide you how to configure it based the official
+documentation of TailwindCSS.
 
-### This is a Markdown sub-heading
+### Installation & configuration
 
-We just used a `###` subheading in our blog post.
+1. **Create your NextJS Project first**.\
+   if you already created NextJS you can skip this step, Use your fav terminal and input this command.
 
-<br />
+   `npx create-next-app@latest tailwind-demo-next --typescript --eslint`
 
-<SyntaxHighlighter language="javascript">
-  {`
-    const doStuff = () => {
-      return console.log('hey')
-    }
-  `}
-</SyntaxHighlighter>
-<br />
+2. **Open NextJS project in your text editor**.
 
-```
-  // this is a code block
-  const doSomething = () => {
-    return console.log('hey')
-  }
-```
+3. **Install Tailwind CSS**.\
+   following this command in the terminal to generate both `tailwind.config.js` and `postcss.config.js`.
 
-<br />
+   > npm install -D tailwindcss postcss autoprefixer\
+   > npx tailwindcss init -p
 
-<div>
-  Here, I'm using a component inside my MarkDown file:{" "}
-  {<Button text={"Click me"} />}
+4. **Configure path tailwindcss**.\
+   add this all script to your `tailwind.config.js`
+
+   ```typescript
+   /** @type {import('tailwindcss').Config} */
+   module.exports = {
+     content: [
+       "./pages/**/*.{js,ts,jsx,tsx}",
+       "./components/**/*.{js,ts,jsx,tsx}",
+     ],
+     theme: {
+       extend: {},
+     },
+     plugins: [],
+   };
+   ```
+
+5. **Implement tailwindcss to your public CSS**.\
+   i prefer you to create a new css file inside the folder `./styles/index.css`\
+   also add this script to your `index.css`.
+
+   ```css
+   @tailwind base;
+   @tailwind components;
+   @tailwind utilities;
+   ```
+
+6. **Change the css link inside file `_app.tsx`**.\
+   you can adjust your `index.css` to be your public css in this project, like this
+
+   ![image](https://user-images.githubusercontent.com/79882296/211966268-6f4456a9-d7da-4275-ab5a-e7330afee605.png)
+
+7. **Implement tailwind style in this project**.\
+    you can use tailwind style inside `index.tsx` file.\
+    the file directori is in `./pages/index.tsx` or you can use **CTRL + P** in Visual Studio Code and enter `index.tsx`. Automatically vscode will open the file you are looking for
+
+   **Example:**
+
+   ```typescript
+   export default function Home() {
+     return <h1 className="text-3xl font-bold underline">Hello world!</h1>;
+   }
+   ```
+
+8. **Start your NextJS project**.\
+   enter this command in your terminal inside project, and show what happen\
+   `npm run dev`
+
+> > ### Voila.. 🎉✨🎉
+> >
+> > ### now you can use tailwindcss in nextjs project
+
+Source: [Tailwind CSS NextJS](https://tailwindcss.com/docs/guides/nextjs)
+
+<div className="mt-24">
+  <Button prevPage>Kembali</Button>
 </div>

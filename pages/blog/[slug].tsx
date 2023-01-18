@@ -6,11 +6,9 @@ import mdxPrism from "mdx-prism";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { serialize } from "next-mdx-remote/serialize";
 import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
-import SyntaxHighlighter from "react-syntax-highlighter";
 import Layout from "../../components/Layout/BaseLayout";
 import { MetaProps } from "../../types";
 import Button from "../../components/Commons/Button";
-import { capitalize } from "../../utils/snippets";
 import Link from "next/link";
 import { BsFacebook, BsTwitter, BsWhatsapp, BsLink45Deg } from "react-icons/bs";
 import Image from "next/image";
@@ -20,7 +18,6 @@ import rehypeSlug from "rehype-slug";
 const components = {
   Image,
   Button,
-  SyntaxHighlighter,
 };
 
 type PostPageProps = {
@@ -77,10 +74,8 @@ export default function PostDetail({
   frontMatter,
   mdxSource,
 }: PostPageProps): JSX.Element {
-  const slugCapitalize = capitalize(frontMatter.title.replace(/-/gi, " "));
-
   const meta: MetaProps = {
-    title: `${slugCapitalize}`,
+    title: `${frontMatter.title}`,
     description:
       "The personal site, writing and portfolio of Wahyu Budi Utomo, a frontend engineer based in Indonesia.",
     favicon: "/images/logo.png",
@@ -107,7 +102,7 @@ export default function PostDetail({
           </Link>
           <span className="mx-3 after:content-['/']"></span>
           <Link href="#" className="text-blue-500 dark:text-blue-400">
-            {slugCapitalize}
+            {frontMatter.title}
           </Link>
         </div>
         <div className="pt-8 sm:pt-12 pb-8">

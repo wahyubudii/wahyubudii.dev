@@ -4,7 +4,11 @@ import Footer from "../../Sections/Footer";
 import Head from "next/head";
 import { LayoutProps } from "../../../types";
 
-export default function Layout({ children, customMeta, center }: LayoutProps) {
+export default function Layout({
+  children,
+  customMeta,
+  center,
+}: LayoutProps): JSX.Element {
   return (
     <div>
       <Head>
