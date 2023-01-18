@@ -10,10 +10,19 @@ import Layout from "../../components/Layout/BaseLayout";
 import { MetaProps } from "../../types";
 import Button from "../../components/Commons/Button";
 import Link from "next/link";
-import { BsFacebook, BsTwitter, BsWhatsapp, BsLink45Deg } from "react-icons/bs";
 import Image from "next/image";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeSlug from "rehype-slug";
+import {
+  WhatsappShareButton,
+  FacebookShareButton,
+  TwitterShareButton,
+  LinkedinShareButton,
+  WhatsappIcon,
+  FacebookIcon,
+  TwitterIcon,
+  LinkedinIcon,
+} from "next-share";
 
 const components = {
   Image,
@@ -21,6 +30,7 @@ const components = {
 };
 
 type PostPageProps = {
+  slug: string;
   frontMatter: {
     title: string;
     date: string;
@@ -64,6 +74,7 @@ export const getStaticProps: GetStaticProps = async ({
 
   return {
     props: {
+      slug,
       frontMatter,
       mdxSource,
     },
@@ -71,6 +82,7 @@ export const getStaticProps: GetStaticProps = async ({
 };
 
 export default function PostDetail({
+  slug,
   frontMatter,
   mdxSource,
 }: PostPageProps): JSX.Element {
@@ -83,10 +95,10 @@ export default function PostDetail({
   };
 
   const shareLink = [
-    { name: "whatsapp", color: "#21BF73", link: "#", icon: BsWhatsapp },
-    { name: "facebook", color: "#1363DF", link: "#", icon: BsFacebook },
-    { name: "twitter", color: "#5BC0F8", link: "#", icon: BsTwitter },
-    { name: "link", color: "gray", link: "#", icon: BsLink45Deg },
+    { shareButton: WhatsappShareButton, icon: WhatsappIcon },
+    { shareButton: FacebookShareButton, icon: FacebookIcon },
+    { shareButton: TwitterShareButton, icon: TwitterIcon },
+    { shareButton: LinkedinShareButton, icon: LinkedinIcon },
   ];
 
   return (
@@ -115,6 +127,19 @@ export default function PostDetail({
           <div className="my-5 flex items-center gap-4">
             {shareLink.map((val, index) => {
               return (
+                <val.shareButton
+                  key={index}
+                  url={`https://wahyubudii-dev.vercel.app/blog/${slug}`}
+                  title={frontMatter.title}
+                  blankTarget={true}
+                  separator=": "
+                >
+                  <val.icon size={32} round />
+                </val.shareButton>
+              );
+            })}
+            {/* {shareLink.map((val, index) => {
+              return (
                 <Link
                   key={index}
                   className="rounded-full border p-2 bg-white"
@@ -123,7 +148,7 @@ export default function PostDetail({
                   <val.icon size={20} color={val.color} />
                 </Link>
               );
-            })}
+            })} */}
           </div>
           <div className="prose dark:prose-dark font-sans max-w-full text-justify text-sm xl:text-lg mt-5">
             <MDXRemote {...mdxSource} components={components} />

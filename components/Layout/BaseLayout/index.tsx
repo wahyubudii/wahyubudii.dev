@@ -31,7 +31,7 @@ export default function Layout({
           </main>
           <Footer />
         </div>
-        {/* <div className="absolute top-0 h-72 w-full bg-gradient-to-r from-sky-200 via-gray-400 to-sky-400 blur-2xl opacity-30 dark:opacity-20 z-0"></div> */}
+        {/* <div className="absolute top-0 h-44 w-full bg-gradient-to-tr from-white via-green-200  to-blue-400 blur-2xl opacity-30 dark:opacity-20 z-0"></div> */}
       </div>
     </div>
   );
