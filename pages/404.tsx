@@ -8,7 +8,7 @@ export default function Custom404() {
     title: "Page Not Found!",
     description:
       "The personal site, writing and portfolio of Wahyu Budi Utomo, a frontend engineer based in Indonesia.",
-    favicon: "/images/logo.png",
+    favicon: "/images/favicons/surprise.png",
     type: "website",
   };
 

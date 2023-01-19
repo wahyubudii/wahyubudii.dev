@@ -20,11 +20,11 @@ type PostType = {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const files = fs.readdirSync(path.join(process.cwd(), "posts/snippets"));
+  const files = fs.readdirSync(path.join(process.cwd(), "posts/blog"));
 
   const posts = files.map((filename: any) => {
     const markdownWithMeta = fs.readFileSync(
-      path.join(process.cwd(), "posts/snippets", filename)
+      path.join(process.cwd(), "posts/blog", filename)
     );
     const { data: frontMatter } = matter(markdownWithMeta);
 
@@ -46,7 +46,7 @@ export default function Blog({ posts }: any): JSX.Element {
     title: "Blog | Wahyu Budi Utomo",
     description:
       "The personal site, writing and portfolio of Wahyu Budi Utomo, a frontend engineer based in Indonesia.",
-    favicon: "/images/logo.png",
+    favicon: "/images/favicons/surprise.png",
     type: "website",
   };
 
@@ -83,6 +83,7 @@ export default function Blog({ posts }: any): JSX.Element {
                       alt="photo"
                       height={200}
                       width={200}
+                      priority
                     />
                   </div>
                   <div className="space-y-1 w-fit">

@@ -42,7 +42,7 @@ type PostPageProps = {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const files = fs.readdirSync(path.join(process.cwd(), "posts/snippets"));
+  const files = fs.readdirSync(path.join(process.cwd(), "posts/blog"));
 
   const paths = files.map((filename) => ({
     params: {
@@ -60,7 +60,7 @@ export const getStaticProps: GetStaticProps = async ({
   params: { slug },
 }: any) => {
   const markdownWithMeta = fs.readFileSync(
-    path.join(process.cwd(), "posts/snippets", `${slug}.mdx`)
+    path.join(process.cwd(), "posts/blog", `${slug}.mdx`)
   );
 
   const { data: frontMatter, content } = matter(markdownWithMeta);
@@ -90,7 +90,7 @@ export default function PostDetail({
     title: `${frontMatter.title}`,
     description:
       "The personal site, writing and portfolio of Wahyu Budi Utomo, a frontend engineer based in Indonesia.",
-    favicon: "/images/logo.png",
+    favicon: "/images/favicons/surprise.png",
     type: "article",
   };
 
