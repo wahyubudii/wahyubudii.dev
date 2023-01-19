@@ -232,12 +232,12 @@ export default function Rara() {
                 <span className="bg-gradient-to-r from-green-600 to-blue-500 text-transparent bg-clip-text font-semibold">
                   Azzahra Putri Martikasari
                 </span>
-                , that's beautiful name, fitting for the beauty she possesses,
-                always lights up my days with stunning happiness and radiance.
-                And
+                , that&apos;s beautiful name, fitting for the beauty she
+                possesses, always lights up my days with stunning happiness and
+                radiance. And
                 <span className="bg-gradient-to-r from-pink-600 to-purple-500 text-transparent bg-clip-text font-semibold">
-                  &nbsp;the name will always be my (wahyu) favorite name I've
-                  ever seen.
+                  &nbsp;the name will always be my (wahyu) favorite name
+                  I&apos;ve ever seen.
                 </span>
               </p>
               <div className="my-14 rounded-full">
@@ -266,7 +266,7 @@ export default function Rara() {
                   <span className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-transparent bg-clip-text font-semibold">
                     My dear lover
                   </span>
-                  , today is a very special day for me. It's your birthday.{" "}
+                  , today is a very special day for me. It&apos;s your birthday.{" "}
                   <span className="bg-gradient-to-r from-blue-600 to-green-500 text-transparent bg-clip-text font-semibold">
                     I am so lucky&nbsp;
                   </span>
@@ -351,12 +351,12 @@ export default function Rara() {
             {/* NOTE */}
             <section className="mt-14 bg-white text-center py-6 px-4 text-xs border border-slate-400 border-dashed space-y-5">
               <h1 className="italic bg-gradient-to-r from-cyan-500 to-purple-500 text-transparent bg-clip-text font-semibold">
-                Please always remember to respect each other's feelings, don't
-                let a third person come into this relationship. Now that you're
-                21, it's time to start thinking more seriously about the purpose
-                of this relationship. It's not the time to be too active in
-                communicating with the opposite sex that causes problems in this
-                relationship.
+                Please always remember to respect each other&apos;s feelings,
+                don&apos;t let a third person come into this relationship. Now
+                that you&apos;re 21, it&apos;s time to start thinking more
+                seriously about the purpose of this relationship. It&apos;s not
+                the time to be too active in communicating with the opposite sex
+                that causes problems in this relationship.
               </h1>
               <h1 className="pb-5 bg-gradient-to-r from-red-500 to-yellow-500 text-transparent text-sm bg-clip-text font-bold">
                 Promise?
