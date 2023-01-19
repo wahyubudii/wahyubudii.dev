@@ -297,7 +297,7 @@ export default function Rara() {
                 </div>
                 <div className="relative h-32 flex items-center justify-center font-bold text-4xl bg-sky-300 text-white group">
                   <p>U</p>
-                  <div className="absolute w-full h-full bg-blue-200 origin-bottom transition duration-300 border border-dashed group-hover:rotate-180 flex items-center justify-center" />
+                  <div className="absolute w-full h-full bg-blue-200 origin-bottom transition duration-300 border border-dashed group-hover:-rotate-180 flex items-center justify-center" />
                 </div>
               </div>
             </section>
